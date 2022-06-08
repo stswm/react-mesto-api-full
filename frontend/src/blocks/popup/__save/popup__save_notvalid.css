@@ -1,0 +1,12 @@
+.popup__save_notvalid{
+  border: 1px solid #000000;
+  background: #F7F7F7;
+  opacity: 0.2;
+  cursor: default;
+  color: #000000;
+}
+@media screen and (max-width: 786px) {
+  .popup__save_notvalid {
+    margin: 0 22px 0;
+  }
+}

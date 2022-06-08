@@ -1,0 +1,23 @@
+.header__nav{
+  display: flex;
+}
+
+.header__link{
+  color: #fff;
+  text-decoration: underline;
+}
+.header__email{
+  color: #fff;
+  margin: 0;
+  font-weight:500;
+  font-size: 18px;
+  line-height: 22px;
+}
+.header__button{
+  color: #A9A9A9;
+  text-decoration: underline;
+  margin: 0;
+  margin-left: 24px;
+  font-size: 18px;
+  line-height: 22px;
+}
