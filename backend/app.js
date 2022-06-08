@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
@@ -5,6 +6,7 @@ const { userRouter } = require('./routes/users');
 const { cardRouter } = require('./routes/cards');
 const { mainRouter } = require('./routes/main');
 const { errorHeandler } = require('./controllers/main');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const {
   login,
   createUser,
@@ -21,6 +23,7 @@ const { PORT = 3000 } = process.env;
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
 app.use(express.json());
+app.use(requestLogger);
 
 app.post('/signup', validateNewUser, createUser);
 app.post('/signin', validateLogin, login);
@@ -29,6 +32,7 @@ app.use(auth);
 app.use('/users', userRouter);
 app.use('/cards', cardRouter);
 app.use('*', mainRouter);
+app.use(errorLogger);
 
 app.use(errors());
 app.use(errorHeandler);
