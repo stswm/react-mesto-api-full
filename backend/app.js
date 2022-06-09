@@ -41,6 +41,9 @@ const allowedCors = [
   'https://api.stswm.nomoreparties.sbs',
 ];
 
+
+app.use(express.json());
+app.use(requestLogger);
 const cors = (req, res, next) => {
   const { origin } = req.headers;
   if (allowedCors.includes(origin)) {
@@ -58,9 +61,6 @@ const cors = (req, res, next) => {
   next();
 };
 app.use(cors());
-
-app.use(express.json());
-app.use(requestLogger);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
