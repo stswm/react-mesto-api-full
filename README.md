@@ -7,7 +7,7 @@ http://stswm.nomoredomains.xyz
 
 - backend
 
-api.stswm.nomoreparties.sbs
+http://api.stswm.nomoreparties.sbs
 
 
 51.250.25.49
