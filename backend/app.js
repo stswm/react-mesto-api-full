@@ -33,7 +33,7 @@ const allowedCors = [
   'https://api.stswm.nomoreparties.sbs',
 ];
 
-app.use((req, res, next) => {
+const cors = (req, res, next) => {
   const { origin } = req.headers;
   if (allowedCors.includes(origin)) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -48,11 +48,11 @@ app.use((req, res, next) => {
     return res.end();
   }
   return next();
-});
+};
 
 app.use(express.json());
 app.use(requestLogger);
-// app.use(cors());
+app.use(cors());
 
 app.get('/crash-test', () => {
   setTimeout(() => {
