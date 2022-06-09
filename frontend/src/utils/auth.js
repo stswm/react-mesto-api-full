@@ -43,7 +43,8 @@ class Auth {
 }
 
 const auth = new Auth({
-  baseUrl: "https://auth.nomoreparties.co",
+  // baseUrl: "https://auth.nomoreparties.co",
+  baseUrl: "api.stswm.nomoreparties.sbs",
   headers: { "Content-Type": "application/json" },
 });
 

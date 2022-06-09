@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const { errors } = require('celebrate');
 const { userRouter } = require('./routes/users');
 const { cardRouter } = require('./routes/cards');
@@ -51,6 +52,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use(requestLogger);
+app.use(cors());
 
 app.get('/crash-test', () => {
   setTimeout(() => {

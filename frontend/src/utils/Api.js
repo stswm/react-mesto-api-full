@@ -97,9 +97,11 @@ toggleLikeCards(id, currentLike) {
 }
 
 const api = new Api({
-baseUrl: "https://mesto.nomoreparties.co/v1/cohort-37",
+// baseUrl: "https://mesto.nomoreparties.co/v1/cohort-37",
+baseUrl: "http://stswm.nomoredomains.xyz",
 headers: {
-  authorization: "7e2f482c-4e3d-4b4a-ad5f-01c6f1151e1f",
+  // authorization: "7e2f482c-4e3d-4b4a-ad5f-01c6f1151e1f",
+  authorization: `${localStorage.getItem('jwt')}`,
   "Content-Type": "application/json",
 },
 });
