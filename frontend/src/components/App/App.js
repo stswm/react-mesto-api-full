@@ -144,7 +144,7 @@ function App() {
       })
       .catch((err) => console.log(err));
   }
-  // ! new func
+  
   function handleRegister(email, password) {
     auth
       .register(email, password)

@@ -17,7 +17,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && scp -r ./build/* stswm@51.250.24.227:/home/stswm/mestoFront"
+    "deploy": "npm run build && scp -r ./build/* stswm@51.250.25.49:/home/stswm/frontend"
   },
   "eslintConfig": {
     "extends": [
