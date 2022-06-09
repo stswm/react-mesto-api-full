@@ -23,13 +23,13 @@ const { PORT = 3000 } = process.env;
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
-const corsOptions = {
-  origin: '*',
-  credentials: true,
-  optionSuccessStatus: 200,
-};
+// const corsOptions = {
+//   origin: '*',
+//   credentials: true,
+//   optionSuccessStatus: 200,
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 // const allowedCors = [
 //   'https://praktikum.tk',
@@ -57,10 +57,10 @@ app.use(cors(corsOptions));
 //   }
 //   next();
 // };
+// app.use(cors());
 
 app.use(express.json());
 app.use(requestLogger);
-app.use(cors());
 
 app.get('/crash-test', () => {
   setTimeout(() => {
