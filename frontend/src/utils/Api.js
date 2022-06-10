@@ -119,7 +119,6 @@ const api = new Api({
 // baseUrl: "api.stswm.nomoreparties.sbs",
 baseUrl: "http://localhost:3001",
 headers: {
-  // authorization: "7e2f482c-4e3d-4b4a-ad5f-01c6f1151e1f",
   // authorization: `${localStorage.getItem('jwt')}`,
   "Content-Type": "application/json",
 },
