@@ -32,17 +32,18 @@ function App() {
   const [cards, setCards] = useState([]);
   const history = useHistory();
 
-  
   useEffect(() => {
     handleTokenCheck();
     if (loggedIn) {
-    Promise.all([api.getProfile(), api.getInitialCards()])
-      .then(([user, cards]) => {
-        if (loggedIn){
-        setCurrentUser(user);
-        setCards(cards)}
-      })
-      .catch((err) => console.log(err))
+      Promise.all([api.getProfile(), api.getInitialCards()])
+        .then(([{user}, cards]) => {
+          console.log("user cards", [user, cards]); //!----------------------------------------------------------
+          if (loggedIn) {
+            setCurrentUser(user);
+            setCards(cards);
+          }
+        })
+        .catch((err) => console.log(err));
     }
   }, [loggedIn]);
 
@@ -51,7 +52,7 @@ function App() {
       history.push("/");
       return;
     }
-    history.push("/sign-in");
+    history.push("/signin");
   }, [history, loggedIn]);
 
   useEffect(() => {
@@ -90,7 +91,7 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
     api
-      .toggleLikeCards(card._id, !isLiked)
+      .toggleLikeCards(card, !isLiked)
       .then((newCard) => {
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
@@ -144,17 +145,17 @@ function App() {
       })
       .catch((err) => console.log(err));
   }
-  
+
   function handleRegister(email, password) {
     auth
       .register(email, password)
       .then((res) => {
-        console.log("Register.res",res);
+        console.log("Register.res", res);
         setIsRegistrate(true);
-        history.push("/sign-in");
+        history.push("/signin");
       })
       .catch((err) => {
-        console.log("Register.err",err);
+        console.log("Register.err", err);
         setIsRegistrate(false);
       })
       .finally(() => {
@@ -173,8 +174,9 @@ function App() {
         }
       })
       .catch((err) => {
-        handleInfoTooltipOpen()
-        console.log(err)});
+        handleInfoTooltipOpen();
+        console.log(err);
+      });
   }
 
   function handleTokenCheck() {
@@ -186,7 +188,7 @@ function App() {
           if (res) {
             setLoggedIn(true);
           }
-          setEmailAuthorized(res.data.email);
+          setEmailAuthorized(res.user.email);
         })
         .catch((err) => console.log(err));
     }
@@ -206,10 +208,10 @@ function App() {
           onLogOut={handleLogOut}
         />
         <Switch>
-          <Route path="/sign-up">
+          <Route path="/signup">
             <Register onRegister={handleRegister} />
           </Route>
-          <Route path="/sign-in">
+          <Route path="/signin">
             <Login onLogIn={handleAuthorize} />
           </Route>
           <ProtectedRoute
@@ -226,7 +228,7 @@ function App() {
             onCardDelete={handleConfirmDeleteClick}
           />
           <Route path="/">
-            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+            {loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
           </Route>
         </Switch>
 

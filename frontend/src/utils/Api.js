@@ -3,10 +3,12 @@ constructor({ baseUrl, headers }) {
   this._headers = headers;
   this._baseUrl = baseUrl;
 }
+
 //запрос имя профиля
 getProfile() {
   return fetch(`${this._baseUrl}/users/me`, {
-    headers: this._headers,
+    // headers: this._headers,
+    headers: this._getHeaders(),
   })
     .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
     .catch(console.log);
@@ -14,7 +16,8 @@ getProfile() {
 //запрос карточек
 getInitialCards() {
   return fetch(`${this._baseUrl}/cards`, {
-    headers: this._headers,
+    // headers: this._headers,
+    headers: this._getHeaders(),
   })
     .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
     .catch(console.log);
@@ -23,7 +26,8 @@ getInitialCards() {
 editProfile(name, about) {
   return fetch(`${this._baseUrl}/users/me`, {
     method: "PATCH",
-    headers: this._headers,
+    // headers: this._headers,
+    headers: this._getHeaders(),
     body: JSON.stringify({
       name,
       about,
@@ -36,7 +40,8 @@ editProfile(name, about) {
 addCard(name, link) {
   return fetch(`${this._baseUrl}/cards`, {
     method: "POST",
-    headers: this._headers,
+    // headers: this._headers,
+    headers: this._getHeaders(),
     body: JSON.stringify({
       name,
       link,
@@ -49,7 +54,8 @@ addCard(name, link) {
 deleteCard(id) {
   return fetch(`${this._baseUrl}/cards/${id}`, {
     method: "DELETE",
-    headers: this._headers,
+    // headers: this._headers,
+    headers: this._getHeaders(),
   })
     .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
     .catch(console.log);
@@ -58,7 +64,8 @@ deleteCard(id) {
 deleteLike(id) {
   return fetch(`${this._baseUrl}/cards/${id}/likes`, {
     method: "DELETE",
-    headers: this._headers,
+    // headers: this._headers,
+    headers: this._getHeaders(),
   })
     .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
     .catch(console.log);
@@ -67,17 +74,18 @@ deleteLike(id) {
 addLike(id) {
   return fetch(`${this._baseUrl}/cards/${id}/likes`, {
     method: "PUT",
-    headers: this._headers,
+    // headers: this._headers,
+    headers: this._getHeaders(),
   })
     .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
     .catch(console.log);
 }
 // изменение аватара
 changeAvatar(avatar) {
-  // renderLoading(false)
   return fetch(`${this._baseUrl}/users/me/avatar`, {
     method: "PATCH",
-    headers: this._headers,
+    // headers: this._headers,
+    headers: this._getHeaders(),
     body: JSON.stringify({
       avatar,
     }),
@@ -89,19 +97,30 @@ changeAvatar(avatar) {
 toggleLikeCards(id, currentLike) {
   return fetch(`${this._baseUrl}/cards/${id}/likes/`, {
     method: currentLike ? "PUT" : "DELETE",
-    headers: this._headers,
+    // headers: this._headers,
+    headers: this._getHeaders(),
   })
     .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
     .catch(console.log);
 }
+_getHeaders() {
+  const jwt = localStorage.getItem('jwt');
+  return {
+    'Authorization': `Bearer ${jwt}`,
+    ...this._headers,
+  };
 }
+}
+
+
 
 const api = new Api({
 // baseUrl: "https://mesto.nomoreparties.co/v1/cohort-37",
-baseUrl: "http://stswm.nomoredomains.xyz",
+// baseUrl: "api.stswm.nomoreparties.sbs",
+baseUrl: "http://localhost:3001",
 headers: {
   // authorization: "7e2f482c-4e3d-4b4a-ad5f-01c6f1151e1f",
-  authorization: `${localStorage.getItem('jwt')}`,
+  // authorization: `${localStorage.getItem('jwt')}`,
   "Content-Type": "application/json",
 },
 });

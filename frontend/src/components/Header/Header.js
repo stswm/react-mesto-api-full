@@ -25,16 +25,16 @@ function Header({ loggedIn, emailAuthorized, onLogOut }) {
       ) : (
         <>
           {
-            <Route path="/sign-up">
-              <Link className="header__link" to="/sign-in">
+            <Route path="/signup">
+              <Link className="header__link" to="/signin">
                 Войти
               </Link>
             </Route>
           }
           {
-            <Route path="/sign-in">
-              <Link className="header__link" to="/sign-up">
-              Регистрация
+            <Route path="/signin">
+              <Link className="header__link" to="/signup">
+                Регистрация
               </Link>
             </Route>
           }
