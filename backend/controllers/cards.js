@@ -62,7 +62,7 @@ const addLikeCard = (req, res, next) => {
       if (!card) {
         return next(new NotFoundErr('Card not found'));
       }
-      return res.status(200).send({ data: card });
+      return res.status(200).send(card);
     })
     .catch((err) => {
       if (err.kind === 'ObjectId') {
@@ -83,7 +83,7 @@ const deleteLikeCard = (req, res, next) => {
       if (!card) {
         return next(new NotFoundErr('Card not found'));
       }
-      return res.status(200).send({ data: card });
+      return res.status(200).send(card);
     })
     .catch((err) => {
       if (err.kind === 'ObjectId') {
