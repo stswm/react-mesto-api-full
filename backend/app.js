@@ -26,6 +26,36 @@ mongoose.connect('mongodb://localhost:27017/mestodb');
 app.use(express.json());
 app.use(requestLogger);
 
+const allowedCors = [
+  'http://localhost:3000',
+  'http://stswm.nomoredomains.xyz',
+  'https://stswm.nomoredomains.xyz',
+  'http://api.stswm.nomoreparties.sbs',
+  'https://api.stswm.nomoreparties.sbs',
+];
+
+const cors = (req, res, next) => {
+  const { origin } = req.headers;
+  const { method } = req;
+  const requestHeaders = req.headers['access-control-request-headers'];
+  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', true);
+  }
+
+  if (method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+    res.header('Access-Control-Allow-Headers', requestHeaders);
+
+    return res.end();
+  }
+
+  next();
+};
+
+
 app.use(cors());
 
 app.get('/crash-test', () => {
