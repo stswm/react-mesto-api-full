@@ -32,6 +32,7 @@ const allowedCors = [
   'https://stswm.nomoredomains.xyz',
   'http://api.stswm.nomoreparties.sbs',
   'https://api.stswm.nomoreparties.sbs',
+  'https://api.stswm.nomoreparties.sbs/users/me'
 ];
 
 const cors = (req, res, next) => {
